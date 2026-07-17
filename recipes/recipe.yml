@@ -19,9 +19,9 @@ modules:
     files:
       - source: system
         destination: / # copies files/system/* into the image root
- - type: script
+  - type: script
     snippets:
-      - "dnf5 -y upgrade"
+      - "dnf5 -y upgrade 'cosmic*'"
   - type: dnf
     repos:
       copr:
