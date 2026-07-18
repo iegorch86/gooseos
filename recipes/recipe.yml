@@ -27,42 +27,45 @@ modules:
       keys:
         - https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
     install:
-      # Skip weak deps (Recommends) — keeps GDM, Rhythmbox, nheko, Rygel, Thunderbird,
-      # etc. from being pulled in by the COSMIC group. Cuts the class at the source.
-      install-weak-deps: false
-      packages:
-        # COSMIC desktop, installed from Fedora repos → each build pulls the latest stable
-        - "@cosmic-desktop-environment"
-        # terminal
-        - fastfetch
-        - micro
-        - starship
-        # virtualization
-        - qemu-kvm
-        - libvirt
-        - virt-manager
-        - virt-viewer
-        # network diagnostics (these are NOT in the base)
-        - nmap
-        - mtr
-        - iperf3
-        - bind-utils
-        - wireshark-cli
-        # disk
-        - gparted
-        # profiling
-        - sysprof
-        - bpftrace
-        - perf
-        # browser (native, from Brave repo above)
-        - brave-browser
-    # Firefox intentionally KEPT as a backup browser — not removed below.
-    remove:
-      packages:
-        - gdm                 # drags in the GNOME session; cosmic-greeter is the DM
-        - gnome-disk-utility  # redundant with gparted
+  #install-weak-deps: false
+  packages:
+    # COSMIC desktop only
+    - "@cosmic-desktop"
 
-  # Homebrew (not in the base)
+    # Selected additional desktop applications
+    - gnome-calculator
+    - okular
+
+    # terminal
+    - fastfetch
+    - micro
+    - starship
+
+    # virtualization
+    - qemu-kvm
+    - libvirt
+    - virt-manager
+    - virt-viewer
+
+    # network diagnostics
+    - nmap
+    - mtr
+    - iperf3
+    - bind-utils
+    - wireshark-cli
+
+    # disk management
+    - gparted
+
+    # profiling
+    - sysprof
+    - bpftrace
+    - perf
+
+    # browser
+    - brave-browser
+    # Firefox intentionally KEPT as a backup browser — not removed below.
+    # Homebrew (not in the base)
   - type: brew
 
   - type: default-flatpaks
@@ -77,6 +80,7 @@ modules:
           - com.ranfdev.DistroShelf        # distrobox GUI — confirm ID on Flathub
           - com.github.tchx84.Flatseal     # Flatpak permissions
           - io.podman_desktop.PodmanDesktop # Podman Desktop — confirm ID on Flathub
+          - io.missioncenter.MissionCenter # MissionCenter
       - scope: user
 
   - type: signing
