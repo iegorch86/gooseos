@@ -27,7 +27,7 @@ Although GooseOS is built primarily for personal use, anyone is welcome to test 
 - Separate Intel/Generic and NVIDIA Open images
 - COSMIC desktop with a carefully selected application set
 - Minimal manual setup after installation
-- Drivers for Pantum printer/scanner included
+- Included driver for Pantum MFP
 - Automated image builds through GitHub Actions
 - Learning how the custom Atomic system model works
 - Applying that knowledge across my Fedora Atomic desktop and my uCore/Fedora CoreOS home server
