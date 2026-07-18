@@ -1,6 +1,6 @@
-<p align="center">
-  <img src="assets/main-logo.png" alt="GooseOS Logo" width="320">
-</p>
+<a href="https://github.com/iegorch86/gooseos">
+  <img src="assets/logo.png" width="320" alt="GooseOS logo">
+</a>
 
 <h1 align="center">GooseOS</h1>
 
@@ -114,7 +114,13 @@ cosign verify --key cosign.pub ghcr.io/iegorch86/homelabos
 ```
 ## Why a Canada Goose?
 
-The GooseOS mascot is a Canada goose — affectionately known across the internet as the **cobra chicken**.
-Across Canada, they're affectionately known as **cobra chickens**—famous for confidently claiming sidewalks, parks, parking lots, and occasionally your personal space.
-Like the mascot, GooseOS aims to be reliable, resilient, and not easily pushed around.
+GooseOS needed a mascot, and a Canada goose was the obvious choice.
+
+If you've ever lived in Canada, you probably already know why.
+
+They're affectionately known as **cobra chickens**—a nickname earned by confidently taking ownership of sidewalks, parks, parking lots, and occasionally your personal space.
+
+If you've encountered one, no further explanation is necessary.
+
 No geese were annoyed during the build process.
+...that we know of.
