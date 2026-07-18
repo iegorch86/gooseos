@@ -23,7 +23,7 @@ modules:
         - https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
 
     install:
-      install-weak-deps: false
+      #install-weak-deps: false
       packages:
         # COSMIC core
         - cosmic-edit
@@ -39,6 +39,12 @@ modules:
         - flatpak
         - gnome-keyring-pam
         - toolbox
+
+        # COSMIC integration
+        - cosmic-wallpapers
+        - switcheroo-control
+        - playerctl
+        - pop-sound-theme
 
         # Applications
         - gnome-calculator
