@@ -54,7 +54,9 @@ modules:
         # browser (native, from Brave repo above)
         - brave-browser
     # Firefox intentionally KEPT as a backup browser — no remove block.
-
+remove:
+      packages:
+        - gdm
   # Homebrew (not in the base)
   - type: brew
 
