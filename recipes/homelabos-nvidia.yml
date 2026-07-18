@@ -1,7 +1,7 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 
-name: homelabos
+name: homelabos-nvidia-open
 description: Personal COSMIC atomic image — NVIDIA base with COSMIC layered from Fedora repos.
 
 base-image: ghcr.io/blue-build/base-images/fedora-base-nvidia-open
