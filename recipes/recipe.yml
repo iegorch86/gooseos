@@ -62,7 +62,13 @@ modules:
         - brave-browser
 
   - type: brew
-
+  - type: dnf
+    remove:
+      packages:
+        - gdm
+        - gnome-shell
+        - gnome-session
+        - gnome-session-wayland-session
   - type: default-flatpaks
     configurations:
       - notify: true
@@ -76,13 +82,7 @@ modules:
           - com.github.tchx84.Flatseal
           - io.podman_desktop.PodmanDesktop
           - io.missioncenter.MissionCenter
-  - type: dnf
-    remove:
-      packages:
-        - gdm
-        - gnome-shell
-        - gnome-session
-        - gnome-session-wayland-session
+  
       - scope: user
 
   - type: signing
