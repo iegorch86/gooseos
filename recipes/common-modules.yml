@@ -64,6 +64,7 @@ modules:
         - sane-backends
         - sane-backends-drivers-scanners
         - sane-airscan
+        - libjpeg8
         
         # Printing
         - cups
