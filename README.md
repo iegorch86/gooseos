@@ -10,9 +10,9 @@ The project combines ideas from Fedora Atomic, [Universal Blue](https://universa
 
 Although GooseOS is built primarily for personal use, anyone is welcome to test it in a virtual machine or on real hardware. It is an experimental custom image, so users should review the recipes and understand what is included before installing it.
 
- included### Goals
+### Goals
 
-- A clean and reproducible Fedora Atomic workstation
+- Clean and reproducible Fedora Atomic workstation
 - Separate Intel/Generic and NVIDIA Open images
 - COSMIC desktop with a carefully selected application set
 - Minimal manual setup after installation
