@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/main-logo.png" alt="GooseOS Logo" width="280">
+  <img src="assets/main-logo.png" alt="GooseOS Logo" width="320">
 </p>
 
 <h1 align="center">GooseOS</h1>
@@ -31,7 +31,7 @@ Although GooseOS is built primarily for personal use, anyone is welcome to test 
 - Learning how the custom Atomic system model works
 - Applying that knowledge across my Fedora Atomic desktop and my uCore/Fedora CoreOS home server
 
-## BlueBuild_Docs
+## BlueBuild Documentation
 
 See the [BlueBuild docs](https://blue-build.org/how-to/setup/) for quick setup instructions for setting up your own repository based on this template.
 
@@ -112,3 +112,12 @@ These images are signed with [Sigstore](https://www.sigstore.dev/)'s [cosign](ht
 ```bash
 cosign verify --key cosign.pub ghcr.io/iegorch86/homelabos
 ```
+## Why a Canada Goose?
+
+GooseOS is proudly Canadian-built, so the mascot had to be a Canada goose.
+
+Across Canada, they're affectionately known as **cobra chickens**—famous for confidently claiming sidewalks, parks, parking lots, and occasionally your personal space.
+
+Like the mascot, GooseOS aims to be reliable, resilient, and not easily pushed around.
+
+No geese were annoyed during the build process.
