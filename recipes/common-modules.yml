@@ -101,7 +101,11 @@ modules:
 
         # Browser
         - brave-browser
-
+        
+  - type: script
+  scripts:
+    - set-default-wallpaper.sh
+    
   - type: brew
 
   - type: default-flatpaks
