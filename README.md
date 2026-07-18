@@ -114,10 +114,7 @@ cosign verify --key cosign.pub ghcr.io/iegorch86/homelabos
 ```
 ## Why a Canada Goose?
 
-GooseOS is proudly Canadian-built, so the mascot had to be a Canada goose.
-
+The GooseOS mascot is a Canada goose — affectionately known across the internet as the **cobra chicken**.
 Across Canada, they're affectionately known as **cobra chickens**—famous for confidently claiming sidewalks, parks, parking lots, and occasionally your personal space.
-
 Like the mascot, GooseOS aims to be reliable, resilient, and not easily pushed around.
-
 No geese were annoyed during the build process.
