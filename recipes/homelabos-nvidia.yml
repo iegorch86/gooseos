@@ -1,92 +1,16 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 
-name: homelabos-nvidia-open
-description: Personal COSMIC atomic image — NVIDIA base with COSMIC layered from Fedora repos.
+name: homelabos-nvidia
+description: Personal Fedora Atomic COSMIC image for NVIDIA systems.
 
 base-image: ghcr.io/blue-build/base-images/fedora-base-nvidia-open
 image-version: latest
 
 modules:
-  - type: files
-    files:
-      - source: system
-        destination: /
+  - from-file: common-modules.yml
 
   - type: dnf
-    repos:
-      copr:
-        - atim/starship
-      files:
-        - https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
-      keys:
-        - https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-
     install:
-      #install-weak-deps: false
       packages:
-        # COSMIC core
-        - cosmic-edit
-        - cosmic-files
-        - cosmic-session
-        - cosmic-greeter
-        - cosmic-store
-        - cosmic-term
-
-        # COSMIC defaults
-        - cosmic-initial-setup
-        - cosmic-player
-        - flatpak
-        - gnome-keyring-pam
-        - toolbox
-
-        # COSMIC integration
-        - cosmic-wallpapers
         - switcheroo-control
-        - playerctl
-        - pop-sound-theme
-
-        # Applications
-        - gnome-calculator
-        - okular
-
-        # Terminal
-        - fastfetch
-        - micro
-        - starship
-
-        # Virtualization
-        - qemu-kvm
-        - libvirt
-        - virt-manager
-        - virt-viewer
-
-        # Networking
-        - nmap
-        - mtr
-        - iperf3
-        - bind-utils
-        - wireshark-cli
-
-        # Browser
-        - brave-browser
-
-  - type: brew
-
-  - type: default-flatpaks
-    configurations:
-      - notify: true
-        scope: system
-        install:
-          - app.zen_browser.zen
-          - org.kde.kate
-          - org.kde.kdenlive
-          - org.shotcut.Shotcut
-          - com.ranfdev.DistroShelf
-          - com.github.tchx84.Flatseal
-          - io.podman_desktop.PodmanDesktop
-          - io.missioncenter.MissionCenter
-
-      - scope: user
-
-  - type: signing
