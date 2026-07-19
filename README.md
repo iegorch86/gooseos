@@ -54,7 +54,7 @@ GooseOS has not been tested as a rebase target from other Fedora Atomic desktops
 Two variants are available:
 
 - **GooseOS NVIDIA** — for systems using supported NVIDIA graphics and the NVIDIA open kernel modules.
-- **GooseOS Intel (Generic)** — for Intel, AMD, virtual machines, and systems that do not require the NVIDIA driver.
+- **GooseOS Intel/AMD** — for Intel, AMD, virtual machines, and systems that do not require the NVIDIA driver.
 
 ### NVIDIA version
 
