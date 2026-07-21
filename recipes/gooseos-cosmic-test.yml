@@ -1,0 +1,23 @@
+---
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+
+name: gooseos-intel
+description: Personal Fedora Atomic COSMIC image for Intel and non-NVIDIA systems.
+
+base-image: ghcr.io/blue-build/base-images/fedora-base
+image-version: latest
+
+modules:
+  - from-file: common-modules.yml
+  - type: os-release
+    properties:
+      NAME: GooseOS
+      PRETTY_NAME: GooseOS Intel
+      VARIANT: Intel / Generic
+      VARIANT_ID: intel  
+  - type: script
+    no-cache: true
+    scripts:
+      - set-gooseos-version.sh
+    
+  - type: signing
