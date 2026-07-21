@@ -9,7 +9,7 @@
   Fast. Stable. Canadian.
 </p>
 
- [![Intel Build](https://github.com/iegorch86/homelabos/actions/workflows/build-intel.yml/badge.svg)](https://github.com/iegorch86/homelabos/actions/workflows/build-intel.yml) [![NVIDIA Build](https://github.com/iegorch86/homelabos/actions/workflows/build-nvidia.yml/badge.svg)](https://github.com/iegorch86/homelabos/actions/workflows/build-nvidia.yml)
+ [![TEST Build](https://github.com/iegorch86/homelabos/actions/workflows/build-intel.yml/badge.svg)](https://github.com/iegorch86/homelabos/actions/workflows/build-cosmic-test.yml) 
 
 ## What is GooseOS?
 
