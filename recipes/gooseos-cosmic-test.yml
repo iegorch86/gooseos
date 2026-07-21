@@ -14,7 +14,7 @@ modules:
       NAME: GooseOS
       PRETTY_NAME: GooseOS Intel TEST
       VARIANT: Intel / AMD - test
-      VARIANT_ID: intel  
+      VARIANT_ID: intel test
   - type: script
     no-cache: true
     scripts:
