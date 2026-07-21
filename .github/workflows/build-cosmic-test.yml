@@ -1,4 +1,4 @@
-name: gooseos-intel
+name: gooseos-testing
 on:
   #schedule:
     #- cron:
