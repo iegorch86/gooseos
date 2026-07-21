@@ -16,6 +16,9 @@ case "${IMAGE_NAME:?BlueBuild did not provide IMAGE_NAME}" in
     *nvidia*)
         EDITION="nvidia-open"
         ;;
+    *cosmic-test*|*testing*)
+        EDITION="COSMIC Test"
+        ;;
     *)
         echo "Cannot determine GooseOS edition from IMAGE_NAME=${IMAGE_NAME}" >&2
         exit 1
