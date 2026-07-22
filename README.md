@@ -9,7 +9,7 @@
   Fast. Stable. Canadian.
 </p>
 
- [![TEST Build](https://github.com/iegorch86/homelabos/actions/workflows/build-intel.yml/badge.svg)](https://github.com/iegorch86/homelabos/actions/workflows/build-cosmic-test.yml) 
+ [![TEST Build](https://github.com/iegorch86/homelabos/actions/workflows/build-cosmic-test.yml/badge.svg)](https://github.com/iegorch86/homelabos/actions/workflows/build-cosmic-test.yml) 
 
 ## What is GooseOS?
 
