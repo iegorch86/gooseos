@@ -36,24 +36,17 @@ modules:
         - cosmic-desktop-environment
         - virtualization
         
+    install:
+      install-weak-deps: false
       packages:
-        # COSMIC desktop
-        - cosmic-edit
-        - cosmic-files
-        - cosmic-session
-        - cosmic-greeter
-        - cosmic-store
-        - cosmic-term
-        - cosmic-initial-setup
-        - cosmic-player
-        - cosmic-wallpapers
-
+        
         # COSMIC integration
         - flatpak
         - gnome-keyring-pam
         - toolbox
         - playerctl
         - pop-sound-theme
+        - lxpolkit
 
         # Dell Latitude / laptop hardware support
         - bolt
@@ -67,7 +60,8 @@ modules:
         
         # Applications
         - gnome-calculator
-        - okular
+        - waydroid
+        - https://zoom.us/client/latest/zoom_x86_64.rpm
 
         # Profiling
         - sysprof
@@ -84,7 +78,7 @@ modules:
         - sane-backends-drivers-scanners
         - sane-airscan
         - libjpeg8
-        - simple-scan
+        - gscan2pdf
         
         # Printing
         - cups
@@ -96,16 +90,7 @@ modules:
         - ipp-usb
         - avahi
         - bluez-cups
-        
-        # Virtualization
-        - qemu-kvm
-        - libvirt
-        - virt-manager
-        - virt-viewer
-        - libvirt-nss
-        - osinfo-db
-        - osinfo-db-tools
-
+                
         # Network diagnostics
         - nmap
         - mtr
@@ -116,6 +101,7 @@ modules:
         - net-tools
         - tcpdump
         - traceroute
+        - tailscale
         - ethtool
 
         # Hardware diagnostics
@@ -145,6 +131,7 @@ modules:
 
         # Browser
         - brave-browser
+        - microsoft-edge-stable
         
   - type: script
     scripts:
@@ -157,15 +144,21 @@ modules:
       - notify: true
         scope: system
         install:
-          - app.zen_browser.zen
+          
           - org.kde.kate
           - org.kde.kdenlive
+          - org.kde.gwenview
           - org.shotcut.Shotcut
+          - md.obsidian.Obsidian
+          - com.obsproject.Studio
+          - org.pvermeer.WebAppHub
           - com.ranfdev.DistroShelf
+          - com.bambulab.BambuStudio
           - com.github.tchx84.Flatseal
+          - io.github.flattool.Warehouse
           - io.podman_desktop.PodmanDesktop
           - io.missioncenter.MissionCenter
-
+         
     
 
   - type: initramfs
