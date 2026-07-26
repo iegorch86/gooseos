@@ -47,17 +47,7 @@ modules:
         - playerctl
         - pop-sound-theme
         - lxpolkit
-
-        # Dell Latitude / laptop hardware support
-        - bolt
-        - fwupd
-        - iio-sensor-proxy
-        - libwacom
-        - libwacom-data
-        - fprintd
-        - fprintd-pam
-        - maliit-keyboard
-        
+      
         # Applications
         - gnome-calculator
         - waydroid
