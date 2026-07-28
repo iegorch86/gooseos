@@ -38,7 +38,8 @@ modules:
       packages:
         
         # COSMIC integration
-        - cosmic-desktop-environment
+        - cosmic-desktop
+        - cosmic-desktop-apps
         - flatpak
         - gnome-keyring-pam
         - toolbox
