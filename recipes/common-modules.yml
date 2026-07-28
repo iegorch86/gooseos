@@ -32,27 +32,26 @@ modules:
         - rhythmbox
         - thunderbird
         - libreoffice
-      packages:
-        - cosmic-desktop-environment
-        - virtualization
         
     install:
       install-weak-deps: false
       packages:
         
         # COSMIC integration
+        - cosmic-desktop-environment
         - flatpak
         - gnome-keyring-pam
         - toolbox
         - playerctl
         - pop-sound-theme
         - lxpolkit
-      
+   
         # Applications
         - gnome-calculator
         - waydroid
         - https://zoom.us/client/latest/zoom_x86_64.rpm
-
+        - virtualization  
+        
         # Profiling
         - sysprof
         - bpftrace
