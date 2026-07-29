@@ -19,7 +19,14 @@ modules:
         - https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
         - https://packages.microsoft.com/keys/microsoft.asc  
         - https://zoom.us/linux/download/pubkey
-        
+    
+    group-install:
+      install-weak-deps: false
+      packages:
+        - virtualization
+        - cosmic-desktop
+        #- cosmic-desktop-apps
+     
     install:
       install-weak-deps: false
       exclude:
@@ -33,11 +40,9 @@ modules:
         - thunderbird
         - libreoffice
       packages:
-        
-        - virtualization      
-        
+                
         # COSMIC integration
-        - cosmic-desktop-enviroment
+   
         - flatpak
         - gnome-keyring-pam
         - toolbox
