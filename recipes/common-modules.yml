@@ -37,14 +37,14 @@ modules:
         - virtualization      
         
         # COSMIC integration
+        - cosmic-desktop-enviroment
         - flatpak
         - gnome-keyring-pam
         - toolbox
         - playerctl
         - pop-sound-theme
         - lxpolkit
-        - cosmic-*
-        
+              
         # Applications
         - gnome-calculator
         - waydroid
