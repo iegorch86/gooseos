@@ -24,8 +24,8 @@ modules:
       install-weak-deps: false
       packages:
         - virtualization
-        - cosmic-desktop
-        #- cosmic-desktop-apps
+        - cosmic-desktop-enviroment
+    
      
     install:
       install-weak-deps: false
