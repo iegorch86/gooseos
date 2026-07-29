@@ -33,23 +33,18 @@ modules:
         - thunderbird
         - libreoffice
       packages:
-        - cosmic-*
+        
         - virtualization      
-    
-    
-    install:
-      install-weak-deps: false
-      packages:
         
         # COSMIC integration
-
         - flatpak
         - gnome-keyring-pam
         - toolbox
         - playerctl
         - pop-sound-theme
         - lxpolkit
-   
+        - cosmic-*
+        
         # Applications
         - gnome-calculator
         - waydroid
