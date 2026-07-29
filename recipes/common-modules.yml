@@ -33,8 +33,7 @@ modules:
         - thunderbird
         - libreoffice
       packages:
-        - cosmic-desktop
-        - cosmic-desktop-apps    
+        - cosmic-&
         - virtualization      
     
     
