@@ -22,6 +22,17 @@ modules:
     
     group-install:
       install-weak-deps: false
+      exclude:
+        - gdm
+        - gnome-shell
+        - gnome-session
+        - gnome-session-wayland-session
+        - gnome-system-monitor
+        - nheko
+        - rhythmbox
+        - thunderbird
+        - libreoffice
+        
       packages:
         - virtualization
         - cosmic-desktop-environment
