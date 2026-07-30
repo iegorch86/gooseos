@@ -17,7 +17,7 @@ modules:
          
       keys:
         - https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-
+        - https://packages.gundulabs.com/keys/gundulabs-repo.asc
         
     
     group-install:
@@ -50,6 +50,7 @@ modules:
         - rhythmbox
         - thunderbird
         - libreoffice-*
+      
       packages:
                 
         # COSMIC integration
@@ -59,6 +60,8 @@ modules:
         - playerctl
         - pop-sound-theme
         - lxpolkit
+        - gaze
+        - gaze-gui
               
         # Applications
         - gnome-calculator
