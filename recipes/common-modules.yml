@@ -14,11 +14,11 @@ modules:
       files:
         - https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
         - https://negativo17.org/repos/fedora-multimedia.repo
-        - https://packages.microsoft.com/yumrepos/edge/config.repo         
+         
       keys:
         - https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-        - https://packages.microsoft.com/keys/microsoft.asc  
-        - https://zoom.us/linux/download/pubkey
+
+        
     
     group-install:
       install-weak-deps: false
@@ -31,7 +31,7 @@ modules:
         - nheko
         - rhythmbox
         - thunderbird
-        - libreoffice
+        - libreoffice-*
         
       packages:
         - virtualization
@@ -49,11 +49,10 @@ modules:
         - nheko
         - rhythmbox
         - thunderbird
-        - libreoffice
+        - libreoffice-*
       packages:
                 
         # COSMIC integration
-   
         - flatpak
         - gnome-keyring-pam
         - toolbox
@@ -64,9 +63,7 @@ modules:
         # Applications
         - gnome-calculator
         - waydroid
-        - https://zoom.us/client/latest/zoom_x86_64.rpm
-
-        
+                
         # Profiling
         - sysprof
         - bpftrace
@@ -124,7 +121,7 @@ modules:
         - exfatprogs
         - dosfstools
         - gdisk
-        - gparted
+        - kde-partitionmanager
 
         # General diagnostics
         - htop
@@ -135,7 +132,7 @@ modules:
 
         # Browser
         - brave-browser
-        - microsoft-edge-stable
+       
         
   - type: script
     scripts:
@@ -149,6 +146,7 @@ modules:
         scope: system
         install:
           
+          - us.zoom.Zoom
           - org.kde.kate
           - org.kde.kdenlive
           - org.kde.gwenview
@@ -160,8 +158,9 @@ modules:
           - com.bambulab.BambuStudio
           - com.github.tchx84.Flatseal
           - io.github.flattool.Warehouse
-          - io.podman_desktop.PodmanDesktop
           - io.missioncenter.MissionCenter
+          - io.podman_desktop.PodmanDesktop
+          
          
     
 
