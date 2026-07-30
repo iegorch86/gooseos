@@ -53,9 +53,9 @@ modules:
       packages:
                 
         # COSMIC integration
-        - flatpak
-        - gnome-keyring-pam
-        - toolbox
+        #- flatpak
+        #- gnome-keyring-pam
+        #- toolbox
         - playerctl
         - pop-sound-theme
         - lxpolkit
@@ -75,59 +75,59 @@ modules:
         - starship
         
         # Scanning
-        - sane-backends
-        - sane-backends-drivers-scanners
-        - sane-airscan
+        #- sane-backends
+        #- sane-backends-drivers-scanners
+        #- sane-airscan
         - libjpeg8
         - gscan2pdf
         
         # Printing
-        - cups
-        - cups-pk-helper
-        - system-config-printer
-        - cups-filters
-        - cups-filters-driverless
-        - cups-browsed
-        - ipp-usb
-        - avahi
-        - bluez-cups
+        #- cups
+        #- cups-pk-helper
+        #- system-config-printer
+        #- cups-filters
+        #- cups-filters-driverless
+        #- cups-browsed
+        #- ipp-usb
+        #- avahi
+        #- bluez-cups
                 
         # Network diagnostics
         - nmap
-        - mtr
+        #- mtr
         - iperf3
-        - bind-utils
+        #- bind-utils
         - wireshark-cli
         - netcat
-        - net-tools
-        - tcpdump
-        - traceroute
+        #- net-tools
+        #- tcpdump
+        #- traceroute
         - tailscale
-        - ethtool
+        #- ethtool
 
         # Hardware diagnostics
-        - nvme-cli
-        - smartmontools
+        #- nvme-cli
+        #- smartmontools
         - lm_sensors
-        - lshw
-        - pciutils
-        - usbutils
-        - dmidecode
+        #- lshw
+        #- pciutils
+        #- usbutils
+        #- dmidecode
 
         # Storage and filesystem support
-        - cifs-utils
-        - nfs-utils
-        - ntfs-3g
-        - exfatprogs
-        - dosfstools
+        #- cifs-utils
+        #- nfs-utils
+        #- ntfs-3g
+        #- exfatprogs
+        #- dosfstools
         - gdisk
         - kde-partitionmanager
 
         # General diagnostics
-        - htop
+        #- htop
         - btop
         - iotop-c
-        - lsof
+        #- lsof
         - strace
 
         # Browser
