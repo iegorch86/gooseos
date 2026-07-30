@@ -84,6 +84,7 @@ modules:
         #- sane-airscan
         - libjpeg8
         - gscan2pdf
+        - djvulibre
         
         # Printing
         #- cups
