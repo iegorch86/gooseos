@@ -30,6 +30,7 @@ modules:
         - gnome-session-wayland-session
         - gnome-system-monitor
         - nheko
+        - gdisk
         - rhythmbox
         - thunderbird
         - libreoffice-*
