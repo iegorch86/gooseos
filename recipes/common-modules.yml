@@ -85,6 +85,7 @@ modules:
         - libjpeg8
         - gscan2pdf
         - djvulibre
+        - unpaper
         
         # Printing
         #- cups
