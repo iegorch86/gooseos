@@ -22,7 +22,7 @@ modules:
         
     
     group-install:
-      install-weak-deps: false
+      #install-weak-deps: false
       exclude:
         - gdm
         - gnome-shell
@@ -41,7 +41,7 @@ modules:
     
      
     install:
-      install-weak-deps: false
+      #install-weak-deps: false
       exclude:
         - gdm
         - gnome-shell
