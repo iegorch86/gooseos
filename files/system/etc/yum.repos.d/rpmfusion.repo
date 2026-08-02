@@ -11,3 +11,17 @@ baseurl=https://download1.rpmfusion.org/nonfree/fedora/updates/44/x86_64/
 enabled=1
 gpgcheck=1
 gpgkey=https://download1.rpmfusion.org/nonfree/fedora/RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020
+
+[rpmfusion-free]
+name=RPM Fusion for Fedora 44 - Free
+baseurl=https://download1.rpmfusion.org/free/fedora/releases/44/Everything/x86_64/os/
+enabled=1
+gpgcheck=1
+gpgkey=https://download1.rpmfusion.org/free/fedora/RPM-GPG-KEY-rpmfusion-free-fedora-2020
+
+[rpmfusion-nonfree-updates]
+name=RPM Fusion for Fedora 44 - Free - Updates
+baseurl=https://download1.rpmfusion.org/free/fedora/updates/44/x86_64/
+enabled=1
+gpgcheck=1
+gpgkey=https://download1.rpmfusion.org/free/fedora/RPM-GPG-KEY-rpmfusion-free-fedora-2020
