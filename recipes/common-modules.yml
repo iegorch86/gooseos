@@ -30,7 +30,7 @@ modules:
         - gnome-session-wayland-session
         - gnome-system-monitor
         - nheko
-        - gdisk
+        - gnome-disk-utility
         - rhythmbox
         - thunderbird
         - libreoffice-*
@@ -51,7 +51,7 @@ modules:
         - nheko
         - rhythmbox
         - thunderbird
-        - gdisk
+        - gnome-disk-utility
         - libreoffice-*
       
       packages:
@@ -129,11 +129,11 @@ modules:
         #- exfatprogs
         #- dosfstools
         #- gdisk
-        - gparted
+        #- gparted
         - samba 
         - samba-common 
         - samba-client
-        #- kde-partitionmanager
+        - kde-partitionmanager
 
         # General diagnostics
         #- htop
