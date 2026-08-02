@@ -51,6 +51,7 @@ modules:
         - nheko
         - rhythmbox
         - thunderbird
+        - gdisk
         - libreoffice-*
       
       packages:
@@ -129,6 +130,9 @@ modules:
         #- dosfstools
         #- gdisk
         - gparted
+        - samba 
+        - samba-common 
+        - samba-client
         #- kde-partitionmanager
 
         # General diagnostics
