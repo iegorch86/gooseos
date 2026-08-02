@@ -7,9 +7,14 @@ modules:
       - source: system
         destination: /
    
+  - type: akmods
+    install:
+      - v4l2loopback
+     # - intel-ipu6
+        
   - type: dnf
     repos:
-    
+        
       copr:
         - atim/starship
       files:
@@ -68,10 +73,12 @@ modules:
         - lxpolkit
         - gaze
         - gaze-gui
-        - akmod-intel-ipu6
+        #- akmod-intel-ipu6
+        #- ipu6-camera-bins
+        - v4l2loopback
+        - v4l2-relayd
         - ipu6-camera-bins
         - ipu6-camera-hal
-        - v4l2-relayd
               
         # Applications
         - gnome-calculator
