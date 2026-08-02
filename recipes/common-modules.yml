@@ -128,7 +128,8 @@ modules:
         #- exfatprogs
         #- dosfstools
         #- gdisk
-        - kde-partitionmanager
+        - gparted
+        #- kde-partitionmanager
 
         # General diagnostics
         #- htop
