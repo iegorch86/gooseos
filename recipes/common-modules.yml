@@ -86,7 +86,9 @@ modules:
         - v4l2-relayd
         - ipu6-camera-bins
         - ipu6-camera-hal
-              
+        - skopeo
+        - jq
+     
         # Applications
         - gnome-calculator
         - waydroid
