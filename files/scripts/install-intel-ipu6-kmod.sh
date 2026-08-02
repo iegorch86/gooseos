@@ -5,10 +5,12 @@ required_commands=(
     rpm
     dnf5
     depmod
+    modinfo
     find
     grep
     sort
     tail
+    mktemp
 )
 
 for command_name in "${required_commands[@]}"; do
@@ -30,50 +32,106 @@ if [[ -z "${kernel_release}" ]]; then
     exit 1
 fi
 
-echo "Kernel release: ${kernel_release}"
-echo "Preparing Intel IPU6 akmod build"
-
-created_ostree_marker=0
+architecture="$(rpm -E '%_arch')"
+workdir="$(mktemp -d)"
 
 cleanup() {
-    if (( created_ostree_marker == 1 )); then
-        rm -f /run/ostree-booted
-    fi
+    rm -rf "${workdir}"
 }
-
 trap cleanup EXIT
 
+echo "Kernel release: ${kernel_release}"
+echo "Architecture: ${architecture}"
+
 #
-# Fedora 44 workaround:
-#
-# Installing akmod-intel-ipu6 normally runs akmods-ostree-post during the
-# RPM transaction. In a bootc/BlueBuild container this fails with:
-#
-#   ERROR: Not to be used as root; start as user or 'akmodsbuild' instead.
-#
-# Present the build temporarily as an OSTree system so the package installs
-# without building the kmod in its RPM %post script. Then run akmods
-# explicitly after the RPM transaction is complete.
+# Install the build environment first.
+# Do not install akmod-intel-ipu6 through DNF here because its RPM %post
+# attempts to build inside the transaction and fails in BlueBuild.
 #
 
-if [[ ! -e /run/ostree-booted ]]; then
-    touch /run/ostree-booted
-    created_ostree_marker=1
-fi
-
-echo "Installing Intel IPU6 akmod source and build dependencies"
+echo "Installing akmods build environment"
 
 dnf5 -y install \
     "kernel-devel-${kernel_release}" \
-    akmod-intel-ipu6
+    akmods
 
-if (( created_ostree_marker == 1 )); then
-    rm -f /run/ostree-booted
-    created_ostree_marker=0
+#
+# Some Fedora images provide the DNF5 download command through dnf5-plugins.
+#
+
+if ! dnf5 download --help >/dev/null 2>&1; then
+    echo "Installing DNF5 download support"
+    dnf5 -y install dnf5-plugins
 fi
 
-if ! command -v akmods >/dev/null 2>&1; then
-    echo "ERROR: akmods was not installed." >&2
+echo "Downloading akmod-intel-ipu6 without installing it"
+
+dnf5 download \
+    --destdir="${workdir}" \
+    --arch="${architecture}" \
+    akmod-intel-ipu6
+
+mapfile -t akmod_rpms < <(
+    find "${workdir}" \
+        -maxdepth 1 \
+        -type f \
+        -name 'akmod-intel-ipu6-*.rpm' \
+        -print
+)
+
+if (( ${#akmod_rpms[@]} != 1 )); then
+    echo "ERROR: Expected exactly one akmod-intel-ipu6 RPM." >&2
+    echo "Downloaded files:" >&2
+    find "${workdir}" -maxdepth 1 -type f -print >&2
+    exit 1
+fi
+
+akmod_rpm="${akmod_rpms[0]}"
+
+echo "Downloaded RPM: ${akmod_rpm}"
+
+#
+# Install only the akmod source payload.
+#
+# --noscripts prevents the failing akmods-ostree-post call.
+# --notriggers prevents transaction triggers associated with this manual
+# installation. We will build the actual kmod explicitly afterward.
+#
+
+echo "Installing akmod source package without RPM scriptlets"
+
+rpm -Uvh \
+    --noscripts \
+    --notriggers \
+    "${akmod_rpm}"
+
+if ! rpm -q akmod-intel-ipu6 >/dev/null 2>&1; then
+    echo "ERROR: akmod-intel-ipu6 was not installed." >&2
+    exit 1
+fi
+
+echo "Installed akmod source package:"
+rpm -q akmod-intel-ipu6
+
+echo "Available Intel IPU6 source RPM:"
+find /usr/src/akmods \
+    -maxdepth 1 \
+    -type f \
+    -name 'intel-ipu6-kmod-*.src.rpm' \
+    -print
+
+source_rpm="$(
+    find /usr/src/akmods \
+        -maxdepth 1 \
+        -type f \
+        -name 'intel-ipu6-kmod-*.src.rpm' \
+        -print \
+        -quit
+)"
+
+if [[ -z "${source_rpm}" ]]; then
+    echo "ERROR: Intel IPU6 akmod source RPM was not installed." >&2
+    rpm -ql akmod-intel-ipu6 >&2
     exit 1
 fi
 
@@ -86,6 +144,7 @@ if ! akmods \
 
     echo "ERROR: Intel IPU6 akmod build failed." >&2
 
+    echo "Akmods logs:"
     find /var/cache/akmods/intel-ipu6 \
         -type f \
         -name '*.log' \
@@ -100,12 +159,13 @@ depmod -a "${kernel_release}"
 kmod_package="kmod-intel-ipu6-${kernel_release}"
 
 if ! rpm -q "${kmod_package}" >/dev/null 2>&1; then
-    echo "ERROR: Expected package was not installed: ${kmod_package}" >&2
+    echo "ERROR: Expected kmod package was not installed:" >&2
+    echo "  ${kmod_package}" >&2
 
     echo "Available Intel IPU6 packages:"
-    rpm -qa | grep -E '(^|-)intel-ipu6' || true
+    rpm -qa | grep -E 'intel-ipu6' || true
 
-    echo "Akmods build logs:"
+    echo "Akmods logs:"
     find /var/cache/akmods/intel-ipu6 \
         -type f \
         -name '*.log' \
@@ -121,15 +181,15 @@ mapfile -t module_files < <(
 )
 
 if (( ${#module_files[@]} == 0 )); then
-    echo "ERROR: No kernel modules found in ${kmod_package}." >&2
+    echo "ERROR: No kernel modules were found in ${kmod_package}." >&2
     rpm -ql "${kmod_package}" >&2
     exit 1
 fi
 
-echo "Installed package:"
+echo "Installed kmod package:"
 rpm -q "${kmod_package}"
 
-echo "Installed Intel IPU6 kernel modules:"
+echo "Installed Intel IPU6 modules:"
 printf '  %s\n' "${module_files[@]}"
 
 for module_file in "${module_files[@]}"; do
@@ -137,7 +197,8 @@ for module_file in "${module_files[@]}"; do
     echo "Module information: ${module_file}"
 
     modinfo "${module_file}" |
-        grep -E '^(filename|name|vermagic|signer|sig_key|sig_hashalgo):' ||
+        grep -E \
+            '^(filename|name|version|vermagic|signer|sig_key|sig_hashalgo):' ||
         true
 done
 
