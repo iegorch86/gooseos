@@ -7,12 +7,12 @@ modules:
       - source: system
         destination: /
    
-  - type: akmods
-    base: main
-    install:
-    
-      - v4l2loopback
+#  - type: akmods
+#    base: main
+#    install:
+#      - v4l2loopback
      # - intel-ipu6
+     
   - type: script
     scripts:
       - check-akmods.sh
