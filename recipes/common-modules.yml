@@ -8,7 +8,8 @@ modules:
         destination: /
   - type: script
     scripts:
-      - install-v4l2loopback-kmod.sh   
+      - install-v4l2loopback-kmod.sh
+      - install-intel-ipu6-kmod.sh
 #  - type: akmods
 #    base: main
 #    install:
