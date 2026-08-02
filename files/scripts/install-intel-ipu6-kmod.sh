@@ -103,6 +103,7 @@ echo "Installing akmod source package without RPM scriptlets"
 rpm -Uvh \
     --noscripts \
     --notriggers \
+    --nodeps \
     "${akmod_rpm}"
 
 if ! rpm -q akmod-intel-ipu6 >/dev/null 2>&1; then
