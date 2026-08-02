@@ -16,8 +16,8 @@ modules:
         - https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
         - https://negativo17.org/repos/fedora-multimedia.repo
         - gundulabs.repo
-        - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$releasever.noarch.rpm
-        - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$releasever.noarch.rpm
+       # - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$releasever.noarch.rpm
+        - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-44.noarch.rpm
          
       keys:
         - https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
