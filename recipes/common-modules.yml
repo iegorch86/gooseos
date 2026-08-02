@@ -8,7 +8,9 @@ modules:
         destination: /
    
   - type: akmods
+    base: main
     install:
+    
       - v4l2loopback
      # - intel-ipu6
         
@@ -75,7 +77,7 @@ modules:
         - gaze-gui
         #- akmod-intel-ipu6
         #- ipu6-camera-bins
-        - v4l2loopback
+        #- v4l2loopback
         - v4l2-relayd
         - ipu6-camera-bins
         - ipu6-camera-hal
