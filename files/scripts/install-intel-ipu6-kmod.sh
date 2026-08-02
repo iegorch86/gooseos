@@ -11,6 +11,10 @@ required_commands=(
     sort
     tail
     mktemp
+    chmod
+    runuser
+    stat
+    bash
 )
 
 for command_name in "${required_commands[@]}"; do
@@ -135,6 +139,29 @@ if [[ -z "${source_rpm}" ]]; then
     rpm -ql akmod-intel-ipu6 >&2
     exit 1
 fi
+echo "Preparing writable temporary directories for akmods"
+
+chmod 1777 /tmp /var/tmp
+
+echo "Temporary directory permissions:"
+stat -c '%A %a %U:%G %n' /tmp /var/tmp
+
+echo "Testing temporary-directory access as the akmods user"
+
+runuser -u akmods -- bash -c '
+    set -euo pipefail
+
+    tmp_test="$(mktemp -d /tmp/gooseos-akmods-test.XXXXXXXX)"
+    var_tmp_test="$(mktemp /var/tmp/gooseos-akmods-test.XXXXXXXX)"
+
+    mkdir "${tmp_test}/BUILD"
+    touch "${tmp_test}/BUILD/write-test"
+
+    rm -rf "${tmp_test}"
+    rm -f "${var_tmp_test}"
+'
+
+echo "Temporary-directory access test passed"
 
 echo "Building Intel IPU6 modules for ${kernel_release}"
 
