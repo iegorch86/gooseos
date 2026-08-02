@@ -68,8 +68,9 @@ modules:
         - lxpolkit
         - gaze
         - gaze-gui
-        - akmod-intel-ipu6 
-        - intel-ipu6-firmware 
+        - akmod-intel-ipu6
+        - ipu6-camera-bins
+        - ipu6-camera-hal
         - v4l2-relayd
               
         # Applications
