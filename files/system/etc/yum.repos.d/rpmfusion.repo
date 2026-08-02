@@ -4,6 +4,7 @@ baseurl=https://download1.rpmfusion.org/nonfree/fedora/releases/44/Everything/x8
 enabled=1
 gpgcheck=1
 gpgkey=https://download1.rpmfusion.org/nonfree/fedora/RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020
+includepkgs=v4l2-relayd
 excludepkgs=vvenc-libs
 
 [rpmfusion-nonfree-updates]
@@ -12,6 +13,7 @@ baseurl=https://download1.rpmfusion.org/nonfree/fedora/updates/44/x86_64/
 enabled=1
 gpgcheck=1
 gpgkey=https://download1.rpmfusion.org/nonfree/fedora/RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020
+includepkgs=v4l2-relayd
 excludepkgs=vvenc-libs
 
 [rpmfusion-free]
@@ -20,12 +22,14 @@ baseurl=https://download1.rpmfusion.org/free/fedora/releases/44/Everything/x86_6
 enabled=1
 gpgcheck=1
 gpgkey=https://download1.rpmfusion.org/free/fedora/RPM-GPG-KEY-rpmfusion-free-fedora-2020
+includepkgs=v4l2-relayd
 excludepkgs=vvenc-libs
 
-[rpmfusion-nonfree-updates]
+[rpmfusion-free-updates]
 name=RPM Fusion for Fedora 44 - Free - Updates
 baseurl=https://download1.rpmfusion.org/free/fedora/updates/44/x86_64/
 enabled=1
 gpgcheck=1
 gpgkey=https://download1.rpmfusion.org/free/fedora/RPM-GPG-KEY-rpmfusion-free-fedora-2020
+includepkgs=v4l2-relayd
 excludepkgs=vvenc-libs
