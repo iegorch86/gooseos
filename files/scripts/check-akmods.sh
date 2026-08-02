@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -euxo pipefail
 
-echo "=== Available akmod RPMs ==="
-find /tmp/rpms -maxdepth 1 -type f | sort
+echo "=== AKMOD CONTENTS ==="
+find /tmp/rpms -maxdepth 1 -type f -printf '%f\n' | sort
 
-echo "=== Search v4l2/ip u6 ==="
+echo
+echo "=== V4L2/IPU6 SEARCH ==="
 find /tmp/rpms -maxdepth 1 -type f | grep -Ei 'v4l2|ipu6' || true
