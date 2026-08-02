@@ -65,6 +65,9 @@ modules:
         - lxpolkit
         - gaze
         - gaze-gui
+        - akmod-intel-ipu6 
+        - intel-ipu6-firmware 
+        - v4l2-relayd
               
         # Applications
         - gnome-calculator
