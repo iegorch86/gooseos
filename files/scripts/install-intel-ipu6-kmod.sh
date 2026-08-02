@@ -12,9 +12,11 @@ required_commands=(
     tail
     mktemp
     chmod
+    chown
     runuser
     stat
     bash
+    cat
 )
 
 for command_name in "${required_commands[@]}"; do
@@ -47,21 +49,16 @@ trap cleanup EXIT
 echo "Kernel release: ${kernel_release}"
 echo "Architecture: ${architecture}"
 
-#
-# Install the build environment first.
-# Do not install akmod-intel-ipu6 through DNF here because its RPM %post
-# attempts to build inside the transaction and fails in BlueBuild.
-#
-
 echo "Installing akmods build environment"
 
 dnf5 -y install \
     "kernel-devel-${kernel_release}" \
     akmods
 
-#
-# Some Fedora images provide the DNF5 download command through dnf5-plugins.
-#
+if ! command -v akmodsbuild >/dev/null 2>&1; then
+    echo "ERROR: akmodsbuild was not installed with the akmods package." >&2
+    exit 1
+fi
 
 if ! dnf5 download --help >/dev/null 2>&1; then
     echo "Installing DNF5 download support"
@@ -92,17 +89,10 @@ fi
 
 akmod_rpm="${akmod_rpms[0]}"
 
-echo "Downloaded RPM: ${akmod_rpm}"
+echo "Downloaded RPM:"
+echo "  ${akmod_rpm}"
 
-#
-# Install only the akmod source payload.
-#
-# --noscripts prevents the failing akmods-ostree-post call.
-# --notriggers prevents transaction triggers associated with this manual
-# installation. We will build the actual kmod explicitly afterward.
-#
-
-echo "Installing akmod source package without RPM scriptlets"
+echo "Installing akmod source payload without scriptlets"
 
 rpm -Uvh \
     --noscripts \
@@ -118,13 +108,6 @@ fi
 echo "Installed akmod source package:"
 rpm -q akmod-intel-ipu6
 
-echo "Available Intel IPU6 source RPM:"
-find /usr/src/akmods \
-    -maxdepth 1 \
-    -type f \
-    -name 'intel-ipu6-kmod-*.src.rpm' \
-    -print
-
 source_rpm="$(
     find /usr/src/akmods \
         -maxdepth 1 \
@@ -135,11 +118,15 @@ source_rpm="$(
 )"
 
 if [[ -z "${source_rpm}" ]]; then
-    echo "ERROR: Intel IPU6 akmod source RPM was not installed." >&2
+    echo "ERROR: Intel IPU6 source RPM was not installed." >&2
     rpm -ql akmod-intel-ipu6 >&2
     exit 1
 fi
-echo "Preparing writable temporary directories for akmods"
+
+echo "Intel IPU6 source RPM:"
+echo "  ${source_rpm}"
+
+echo "Preparing writable temporary directories"
 
 chmod 1777 /tmp /var/tmp
 
@@ -163,24 +150,75 @@ runuser -u akmods -- bash -c '
 
 echo "Temporary-directory access test passed"
 
-echo "Building Intel IPU6 modules for ${kernel_release}"
+build_output_dir="${workdir}/built-rpms"
+build_log="${workdir}/akmodsbuild.log"
 
-if ! akmods \
-    --force \
+mkdir -p "${build_output_dir}"
+touch "${build_log}"
+
+chmod 0755 "${workdir}"
+chown akmods:akmods "${build_output_dir}"
+chown akmods:akmods "${build_log}"
+
+echo "Building Intel IPU6 RPM for ${kernel_release}"
+echo "Running akmodsbuild directly as the akmods user"
+
+if ! runuser -u akmods -- /usr/sbin/akmodsbuild \
     --kernels "${kernel_release}" \
-    --kmod intel-ipu6; then
+    --outputdir "${build_output_dir}" \
+    --logfile "${build_log}" \
+    "${source_rpm}"; then
 
-    echo "ERROR: Intel IPU6 akmod build failed." >&2
+    echo "ERROR: Intel IPU6 RPM build failed." >&2
 
-    echo "Akmods logs:"
-    find /var/cache/akmods/intel-ipu6 \
+    echo "akmodsbuild log:" >&2
+    cat "${build_log}" >&2 || true
+
+    echo "Build output files:" >&2
+    find "${build_output_dir}" \
+        -maxdepth 1 \
         -type f \
-        -name '*.log' \
-        -print \
-        -exec cat {} \; 2>/dev/null || true
+        -print >&2 || true
 
     exit 1
 fi
+
+mapfile -t built_kmod_rpms < <(
+    find "${build_output_dir}" \
+        -maxdepth 1 \
+        -type f \
+        -name "kmod-intel-ipu6-${kernel_release}-*.rpm" \
+        -print
+)
+
+if (( ${#built_kmod_rpms[@]} != 1 )); then
+    echo "ERROR: Expected exactly one Intel IPU6 kmod RPM." >&2
+
+    echo "Build output files:" >&2
+    find "${build_output_dir}" \
+        -maxdepth 1 \
+        -type f \
+        -print >&2 || true
+
+    echo "akmodsbuild log:" >&2
+    cat "${build_log}" >&2 || true
+
+    exit 1
+fi
+
+built_kmod_rpm="${built_kmod_rpms[0]}"
+
+echo "Built Intel IPU6 RPM:"
+echo "  ${built_kmod_rpm}"
+
+echo "Built RPM metadata:"
+rpm -qip "${built_kmod_rpm}"
+
+echo "Installing the built kmod and ipu6-camera-bins together"
+
+dnf5 -y install \
+    "${built_kmod_rpm}" \
+    ipu6-camera-bins
 
 depmod -a "${kernel_release}"
 
@@ -190,18 +228,38 @@ if ! rpm -q "${kmod_package}" >/dev/null 2>&1; then
     echo "ERROR: Expected kmod package was not installed:" >&2
     echo "  ${kmod_package}" >&2
 
-    echo "Available Intel IPU6 packages:"
-    rpm -qa | grep -E 'intel-ipu6' || true
+    echo "Available Intel IPU6 packages:" >&2
+    rpm -qa | grep -E 'intel-ipu6|ipu6-camera' >&2 || true
 
-    echo "Akmods logs:"
-    find /var/cache/akmods/intel-ipu6 \
+    echo "akmodsbuild log:" >&2
+    cat "${build_log}" >&2 || true
+
+    echo "Built RPM files:" >&2
+    find "${build_output_dir}" \
+        -maxdepth 1 \
         -type f \
-        -name '*.log' \
-        -print \
-        -exec cat {} \; 2>/dev/null || true
+        -print >&2 || true
 
     exit 1
 fi
+
+if ! rpm -q --whatprovides intel-ipu6-kmod-common >/dev/null 2>&1; then
+    echo "ERROR: Nothing provides intel-ipu6-kmod-common." >&2
+    exit 1
+fi
+
+if ! rpm -q --whatprovides intel-ipu6-kmod >/dev/null 2>&1; then
+    echo "ERROR: Nothing provides intel-ipu6-kmod." >&2
+    exit 1
+fi
+
+echo "Intel IPU6 dependency providers:"
+
+echo "intel-ipu6-kmod-common:"
+rpm -q --whatprovides intel-ipu6-kmod-common
+
+echo "intel-ipu6-kmod:"
+rpm -q --whatprovides intel-ipu6-kmod
 
 mapfile -t module_files < <(
     rpm -ql "${kmod_package}" |
@@ -231,4 +289,4 @@ for module_file in "${module_files[@]}"; do
 done
 
 echo
-echo "Intel IPU6 kmod build completed successfully."
+echo "Intel IPU6 kmod build and installation completed successfully."
