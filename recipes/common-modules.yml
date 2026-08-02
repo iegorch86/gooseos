@@ -6,16 +6,18 @@ modules:
     files:
       - source: system
         destination: /
-   
+  - type: script
+    scripts:
+      - install-v4l2loopback-kmod.sh   
 #  - type: akmods
 #    base: main
 #    install:
 #      - v4l2loopback
      # - intel-ipu6
      
-  - type: script
-    scripts:
-      - check-akmods.sh
+  #- type: script
+   # scripts:
+    #  - check-akmods.sh
         
   - type: dnf
     repos:
