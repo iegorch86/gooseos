@@ -6,10 +6,10 @@ modules:
     files:
       - source: system
         destination: /
-  - type: script
-    scripts:
-      - install-v4l2loopback-kmod.sh
-      - install-intel-ipu6-kmod.sh
+ # - type: script
+   # scripts:
+    #  - install-v4l2loopback-kmod.sh
+     # - install-intel-ipu6-kmod.sh
 #  - type: akmods
 #    base: main
 #    install:
@@ -84,11 +84,11 @@ modules:
         #- akmod-intel-ipu6
         #- ipu6-camera-bins
         #- v4l2loopback
-        - v4l2-relayd
-        - ipu6-camera-bins
-        - ipu6-camera-hal
-        - skopeo
-        - jq
+        #- v4l2-relayd
+        #- ipu6-camera-bins
+        #- ipu6-camera-hal
+        #- skopeo
+        #- jq
      
         # Applications
         - gnome-calculator
@@ -172,6 +172,7 @@ modules:
         
   - type: script
     scripts:
+        - configure-gaze-auth.sh
         - set-default-wallpaper.sh
 
   - type: brew
