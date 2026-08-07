@@ -4,8 +4,7 @@
 name: gooseos-intel
 description: Personal Fedora Atomic COSMIC image for Intel and non-NVIDIA systems.
 
-base-image: ghcr.io/ublue-os/base
-#base-image: ghcr.io/blue-build/base-images/fedora-base
+base-image: ghcr.io/blue-build/base-images/fedora-base
 image-version: latest
 
 modules:
