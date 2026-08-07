@@ -3,8 +3,8 @@
 
 name: gooseos-nvidia-open
 description: Personal Fedora Atomic COSMIC image for NVIDIA systems.
-
-base-image: ghcr.io/blue-build/base-images/fedora-base-nvidia-open
+base-image: ghcr.io/ublue-os/base-nvidia
+#base-image: ghcr.io/blue-build/base-images/fedora-base-nvidia-open
 image-version: latest
 
 modules:
