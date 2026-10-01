@@ -1,6 +1,8 @@
 > [!WARNING]
 > Repo was experimental, since October 1st of 2026 become archive all effort moved to
-> [Home-Server-Project](https://github.com/home-server-project/) & [JustVoxel](https://github.com/home-server-project/justvoxel) & [Dakota-LTS](https://github.com/highwaytoit/dakota-lts) 
+> [Home-Server-Project](https://github.com/home-server-project/)
+> [JustVoxel](https://github.com/home-server-project/justvoxel) 
+> [Dakota-LTS](https://github.com/highwaytoit/dakota-lts) 
 
 <p align="center">
   <img src="assets/main-logo.png" alt="GooseOS Logo" width="300">
